@@ -81,12 +81,21 @@ void ExperimentTest::updateHook() {
 
 				float errorForce=protocol->getDesiredForce()-(state->getNormalForce());
 
-				if ((errorForce)<SMALL_FORCE){
+				// increase the timer if force error is small enough
+				if (fabs(errorForce)<SMALL_FORCE){
 					protocol->setForceReached(dt);
-					cmdTrans[2]=0;
+					//cmdTrans[2]=0;
 				} else {
-					cmdTrans[2]=1e-5 * -1;// (errorForce>0 ? -1. : 1.);
+					//cmdTrans[2]=1e-5 * -1;// (errorForce>0 ? -1. : 1.);
 				}
+
+				// force tracking - P control
+				cmdTrans[2]=-GAIN_FORCE*errorForce;
+
+				// saturate command
+				float maxIncrement=1e-3;
+				if (fabs(cmdTrans[2]) > maxIncrement)
+					cmdTrans[2]=maxIncrement * (errorForce>0 ? -1. : 1.);
 			}
 		}
 

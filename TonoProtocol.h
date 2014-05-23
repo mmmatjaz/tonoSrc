@@ -12,10 +12,10 @@
 
 #define TRIAL_FORCES {0.5, 2., 4., 0};
 #define TFN 4
-//#define TRIAL_ANGLES {-.4, -.8};
-//#define TAN 2
-#define TRIAL_ANGLES {-.0};
-#define TAN 1
+#define TRIAL_ANGLES {-.4, -.8};
+#define TAN 2
+//#define TRIAL_ANGLES {-.0};
+//#define TAN 1
 #define PI 3.141
 typedef Eigen::Matrix<float, 3, 1> Vector3f;
 typedef Eigen::Matrix<float, 6, 1> Vector6f;
