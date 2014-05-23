@@ -1,0 +1,35 @@
+CC=g++
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=TonoProtocol.cpp RobotState.cpp Simulator.cpp ExperimentTest.cpp
+OBJ=$(SOURCES:.cpp=.o)
+ODIR=obj
+OBJECTS = $(patsubst %,$(ODIR)/%,$(OBJ))
+
+EXECUTABLE=oopTest
+
+
+#INCLUDES += -I${BHAND_INSTALL_DIR}/thirdparty/include -I${BHAND_INSTALL_DIR}/API
+#LIBDIR += -L${BHAND_INSTALL_DIR}/API/lib
+#LDLIBS = -lBHand -lglut -lGL -lGLU -lGLEW
+CLEANCMD = rm -f ${PROGRAM} ./obj/*.o
+DEFS = -DLINUX 
+
+
+default: ${OBJECTS}
+	@echo Linkam
+	g++ ${OBJECTS} ${INCLUDES} ${LIBDIR} ${LDLIBS} -o ${EXECUTABLE}
+${OBJECTS}: ${SOURCES}
+	@echo Kompajlam
+	mkdir -p $(ODIR)
+	g++ ${DEFS} ${INCLUDES} -c ${SOURCES} #-o ${OBJECTS}
+	mv *.o ./obj/
+.PHONY: clean 
+
+clean:
+	@echo pucam 
+	rm -f ${PROGRAM} ./obj/*.o
+	 
+
+test:
+	@echo "obj check"
